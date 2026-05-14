@@ -1,16 +1,19 @@
 import hashlib
 import hmac
 import json
+import os
 import urllib.request
 from datetime import datetime, timezone
 
 
 def main():
+    run_id = os.environ.get("GITHUB_RUN_ID", "")
+    
     timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.") + \
                 f"{datetime.now(timezone.utc).microsecond // 1000:03d}Z"
 
     payload = {
-        "action_run_link": "https://github.com/Bella63-glitch/b12-application/actions/runs/${{ env.RUN_ID }}",
+        "action_run_link": f"https://github.com/Bella63-glitch/b12-application/actions/runs/{run_id}",
         "email": "christabellahmuricho@gmail.com",
         "name": "Christabelah Nekesa Muricho",
         "repository_link": "https://github.com/Bella63-glitch/b12-application",
